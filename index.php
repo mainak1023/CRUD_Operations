@@ -132,6 +132,15 @@ $total = mysqli_num_rows($data);
             margin-top: 20px;
             color: #666;
         }
+
+        /* New styles for photo display */
+        .user-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -142,6 +151,7 @@ $total = mysqli_num_rows($data);
         <div class="table-wrapper">
             <table>
                 <tr>
+                    <th>Photo</th>
                     <th>Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -155,6 +165,13 @@ $total = mysqli_num_rows($data);
                 </tr>
                 <?php while ($result = mysqli_fetch_assoc($data)) { ?>
                     <tr>
+                        <td>
+                            <?php if (!empty($result['photo'])) { ?>
+                                <img src="uploads/<?php echo $result['photo']; ?>" alt="User photo" class="user-photo">
+                            <?php } else { ?>
+                                <img src="uploads/default.png" alt="Default photo" class="user-photo">
+                            <?php } ?>
+                        </td>
                         <td><?php echo $result['id']; ?></td>
                         <td><?php echo $result['fname']; ?></td>
                         <td><?php echo $result['lname']; ?></td>

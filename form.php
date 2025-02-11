@@ -267,15 +267,30 @@
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
             $filename = $_FILES['photo']['name'];
             $filetype = pathinfo($filename, PATHINFO_EXTENSION);
+            $filesize = $_FILES['photo']['size'];
             
+            // Check file type and size
             if(in_array(strtolower($filetype), $allowed)) {
-                // Generate unique name
-                $newname = uniqid() . '.' . $filetype;
-                $upload_path = 'uploads/' . $newname;
-                
-                if(move_uploaded_file($_FILES['photo']['tmp_name'], $upload_path)) {
-                    $photo = $newname;
+                if($filesize <= 5000000) { // 5MB limit
+                    // Create uploads directory if it doesn't exist
+                    if (!file_exists('uploads')) {
+                        mkdir('uploads', 0777, true);
+                    }
+                    
+                    // Generate unique name
+                    $newname = uniqid() . '.' . $filetype;
+                    $upload_path = 'uploads/' . $newname;
+                    
+                    if(move_uploaded_file($_FILES['photo']['tmp_name'], $upload_path)) {
+                        $photo = $newname;
+                    } else {
+                        echo "<script>alert('Error uploading file!');</script>";
+                    }
+                } else {
+                    echo "<script>alert('File size should be less than 5MB!');</script>";
                 }
+            } else {
+                echo "<script>alert('Only JPG, JPEG, PNG & GIF files are allowed!');</script>";
             }
         }
 
