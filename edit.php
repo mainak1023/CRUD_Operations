@@ -1,5 +1,5 @@
-<?php 
-include("connection.php"); 
+<?php
+include("connection.php");
 $id = $_GET['id'];
 
 $query = "SELECT * FROM FORM WHERE id = '$id'";
@@ -9,6 +9,7 @@ $result = mysqli_fetch_assoc($data);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,38 +22,40 @@ $result = mysqli_fetch_assoc($data);
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #E8DE9D;
-            color: #333;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2d3748;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .form-container {
             background: #ffffff;
-            border-radius: 8px;
-            padding: 25px 30px;
-            max-width: 600px;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 700px;
             width: 100%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .form-container h2 {
             text-align: center;
-            font-size: 24px;
-            color: #4B0082;
-            margin-bottom: 20px;
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
         .form-container label {
             display: block;
             font-size: 14px;
-            color: #555;
-            margin-bottom: 6px;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .form-container input[type="text"],
@@ -62,94 +65,158 @@ $result = mysqli_fetch_assoc($data);
         .form-container select,
         .form-container textarea {
             width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-            background: #fafafa;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #fff;
+            transition: all 0.3s ease;
         }
 
         .form-container input:focus,
         .form-container select:focus,
         .form-container textarea:focus {
-            border-color: #4B0082;
-            background: #fff;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
             outline: none;
         }
 
-        .form-container .form-group {
+        .form-container textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .inline-group {
             display: flex;
-            gap: 10px;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 10px 0;
         }
 
-        .form-container .form-group div {
-            flex: 1;
+        .inline-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            margin: 0;
         }
 
-        .form-container .inline-group {
+        .inline-group input[type="radio"],
+        .inline-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4299e1;
+        }
+
+        .terms {
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
+            margin: 25px 0;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
         }
 
-        .form-container .inline-group label {
-            font-size: 14px;
-            color: #555;
+        .terms input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4299e1;
         }
 
-        .form-container input[type="submit"] {
+        input[type="submit"] {
             width: 100%;
-            padding: 12px;
-            background: #4B0082;
+            padding: 14px;
+            background: #4299e1;
             border: none;
             color: #fff;
             font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .form-container input[type="submit"]:hover {
-            background: #6A0DAD;
+        input[type="submit"]:hover {
+            background: #3182ce;
+            transform: translateY(-1px);
         }
 
         .photo-upload {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
         }
 
-        .photo-upload label {
-            display: block;
-            margin-bottom: 6px;
+        .photo-input-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
         .photo-preview {
-            width: 150px;
-            height: 150px;
-            border: 2px dashed #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            background: #f7fafc;
         }
 
         .photo-preview img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
-        #photo-input {
-            margin-top: 8px;
+        input[type="file"] {
+            padding: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            width: calc(100% - 140px);
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .photo-input-container {
+                flex-direction: column;
+            }
+
+            .photo-preview {
+                width: 100%;
+                height: 200px;
+            }
+
+            input[type="file"] {
+                width: 100%;
+            }
+
+            .inline-group {
+                gap: 15px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h2>Update User</h2>
@@ -158,8 +225,8 @@ $result = mysqli_fetch_assoc($data);
                 <label for="photo-input">Profile Photo</label>
                 <input type="file" id="photo-input" name="photo" accept="image/*" onchange="previewImage(this)">
                 <div class="photo-preview" id="photo-preview">
-                    <img src="uploads/<?php echo $result['photo'] ? $result['photo'] : 'default.png'; ?>" 
-                         alt="Profile Preview" id="preview-img">
+                    <img src="uploads/<?php echo $result['photo'] ? $result['photo'] : 'default.png'; ?>"
+                        alt="Profile Preview" id="preview-img">
                 </div>
             </div>
 
@@ -196,24 +263,24 @@ $result = mysqli_fetch_assoc($data);
 
             <label>Nationality:</label>
             <div class="inline-group">
-                <input type="radio" id="indian" name="nationality" value="Indian" 
-                       <?php echo ($result['nationality'] == 'Indian') ? 'checked' : ''; ?> required>
+                <input type="radio" id="indian" name="nationality" value="Indian"
+                    <?php echo ($result['nationality'] == 'Indian') ? 'checked' : ''; ?> required>
                 <label for="indian">Indian</label>
-                <input type="radio" id="nri" name="nationality" value="NRI" 
-                       <?php echo ($result['nationality'] == 'NRI') ? 'checked' : ''; ?> required>
+                <input type="radio" id="nri" name="nationality" value="NRI"
+                    <?php echo ($result['nationality'] == 'NRI') ? 'checked' : ''; ?> required>
                 <label for="nri">NRI</label>
             </div>
 
             <label>Languages Known:</label>
             <div class="inline-group">
-                <input type="checkbox" id="bengali" name="language[]" value="Bengali" 
-                       <?php echo (strpos($result['language'], 'Bengali') !== false) ? 'checked' : ''; ?>>
+                <input type="checkbox" id="bengali" name="language[]" value="Bengali"
+                    <?php echo (strpos($result['language'], 'Bengali') !== false) ? 'checked' : ''; ?>>
                 <label for="bengali">Bengali</label>
-                <input type="checkbox" id="english" name="language[]" value="English" 
-                       <?php echo (strpos($result['language'], 'English') !== false) ? 'checked' : ''; ?>>
+                <input type="checkbox" id="english" name="language[]" value="English"
+                    <?php echo (strpos($result['language'], 'English') !== false) ? 'checked' : ''; ?>>
                 <label for="english">English</label>
-                <input type="checkbox" id="hindi" name="language[]" value="Hindi" 
-                       <?php echo (strpos($result['language'], 'Hindi') !== false) ? 'checked' : ''; ?>>
+                <input type="checkbox" id="hindi" name="language[]" value="Hindi"
+                    <?php echo (strpos($result['language'], 'Hindi') !== false) ? 'checked' : ''; ?>>
                 <label for="hindi">Hindi</label>
             </div>
 
@@ -237,9 +304,10 @@ $result = mysqli_fetch_assoc($data);
         }
     </script>
 </body>
+
 </html>
 
-<?php 
+<?php
 if (isset($_POST['update'])) {
     $fname       = $_POST['fname'];
     $lname       = $_POST['lname'];
@@ -254,19 +322,19 @@ if (isset($_POST['update'])) {
 
     // Handle photo upload
     $photo_update = '';
-    if(isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
         $allowed = ['jpg', 'jpeg', 'png', 'gif'];
         $filename = $_FILES['photo']['name'];
         $filetype = pathinfo($filename, PATHINFO_EXTENSION);
-        
-        if(in_array(strtolower($filetype), $allowed)) {
+
+        if (in_array(strtolower($filetype), $allowed)) {
             // Generate unique name
             $newname = uniqid() . '.' . $filetype;
             $upload_path = 'uploads/' . $newname;
-            
-            if(move_uploaded_file($_FILES['photo']['tmp_name'], $upload_path)) {
+
+            if (move_uploaded_file($_FILES['photo']['tmp_name'], $upload_path)) {
                 // Delete old photo if exists and not default
-                if($result['photo'] && $result['photo'] != 'default.png') {
+                if ($result['photo'] && $result['photo'] != 'default.png') {
                     @unlink('uploads/' . $result['photo']);
                 }
                 $photo_update = ", photo='$newname'";
